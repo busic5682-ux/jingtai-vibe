@@ -67,7 +67,7 @@ function TabBar({ active }: { active: "home" | "discover" | "post" | "rank" | "m
   };
 
   return (
-    <div className="px-4 pb-4 z-40">
+    <div className="absolute inset-x-4 bottom-4 z-40">
       <div className="relative flex items-center rounded-[28px] border border-white/60 bg-white/85 px-2 py-2 shadow-[0_8px_30px_-12px_rgba(17,17,17,0.18)] backdrop-blur-xl">
         {item("home", Home, "首页")}
         {item("discover", Compass, "发现")}
