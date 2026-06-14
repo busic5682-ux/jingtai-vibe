@@ -284,6 +284,7 @@ export function HomeScreen() {
           ))}
         </div>
       </div>
+      </div>
 
       <TabBar active="home" />
     </div>
