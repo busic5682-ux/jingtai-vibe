@@ -128,8 +128,7 @@ export function HomeScreen() {
     { img: cafe, name: "晨光咖啡 Daybreak", tag: "咖啡·安静", score: 8.9, dist: "0.5km", users: 540 },
   ];
   return (
-    <div className="relative h-full flex flex-col bg-surface">
-      <div className="flex-1 overflow-y-auto">
+    <div className="h-full overflow-y-auto bg-surface pb-32">
       {/* Header */}
       <div className="px-5 pt-12 pb-3">
         <div className="flex items-center justify-between">
