@@ -15,7 +15,7 @@ import {
   MapPin,
   Navigation,
   Share2,
-  Bookmark,
+  QrCode,
   Image as ImageIcon,
   Star,
   Camera,
