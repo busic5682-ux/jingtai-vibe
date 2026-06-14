@@ -439,7 +439,7 @@ export function DetailScreen() {
   ];
 
   return (
-    <div className="relative h-full overflow-y-auto bg-white pb-32">
+    <div className="h-full overflow-y-auto bg-white pb-32">
       {/* Cover */}
       <div className="relative h-[320px] w-full">
         <img src={restaurant} alt="" className="h-full w-full object-cover" />
@@ -599,7 +599,7 @@ export function PostScreen() {
     "氛围感",
   ];
   return (
-    <div className="relative h-full overflow-y-auto bg-white pb-32">
+    <div className="h-full overflow-y-auto bg-white pb-32">
       {/* Header */}
       <div className="flex items-center justify-between px-5 pt-12 pb-3">
         <button>
