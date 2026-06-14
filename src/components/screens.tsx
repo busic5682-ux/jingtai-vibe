@@ -823,6 +823,20 @@ export function MeScreen() {
       <div className="relative overflow-hidden bg-ink pt-12 pb-16 text-white">
         <div className="absolute -right-12 top-6 h-40 w-40 rounded-full bg-brand/30 blur-3xl" />
         <div className="absolute -left-10 -bottom-8 h-40 w-40 rounded-full bg-highlight/20 blur-3xl" />
+
+        {/* Top nav bar */}
+        <div className="relative flex items-center justify-between px-5 pb-5">
+          <p className="text-[15px] font-bold tracking-wide">我的</p>
+          <div className="flex items-center gap-2">
+            <button className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 backdrop-blur transition-colors hover:bg-white/20">
+              <QrCode className="h-[15px] w-[15px] text-white" strokeWidth={1.8} />
+            </button>
+            <button className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 backdrop-blur transition-colors hover:bg-white/20">
+              <Settings className="h-[15px] w-[15px] text-white" strokeWidth={1.8} />
+            </button>
+          </div>
+        </div>
+
         <div className="relative flex items-center gap-4 px-5">
           <div className="relative">
             <img
@@ -839,9 +853,6 @@ export function MeScreen() {
             <p className="mt-0.5 text-[11px] text-white/70">宝藏猎人 · 走过 47 个地方</p>
             <p className="mt-1 text-[10px] text-white/60">"晚上九点的烧烤摊最好吃。"</p>
           </div>
-          <button className="rounded-full border border-white/20 px-3 py-1.5 text-[11px]">
-            编辑
-          </button>
         </div>
 
         {/* Stats */}
