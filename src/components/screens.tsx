@@ -116,11 +116,11 @@ function ScoreBadge({ score }: { score: number }) {
 
 export function HomeScreen() {
   const cats = [
-    { icon: UtensilsCrossed, label: "吃什么", color: "#FFE9D6" },
-    { icon: Coffee, label: "喝什么", color: "#E6F0FF" },
-    { icon: Gamepad2, label: "玩什么", color: "#EAFBE7" },
-    { icon: Heart, label: "约会去哪", color: "#FFE4EC" },
-    { icon: Sparkles, label: "服务体验", color: "#F2E9FF" },
+    { icon: UtensilsCrossed, label: "吃什么", bg: "#FFE4D1", fg: "#E07A3B" },
+    { icon: Coffee, label: "喝什么", bg: "#E1ECFF", fg: "#4F8CFF" },
+    { icon: Gamepad2, label: "玩什么", bg: "#DFF5DA", fg: "#3FA663" },
+    { icon: Heart, label: "约会去哪", bg: "#FFDCE8", fg: "#E85A8A" },
+    { icon: Sparkles, label: "服务体验", bg: "#ECE0FF", fg: "#8A5CF6" },
   ];
   const hot = [
     { img: hotpot, name: "巷子里的麻辣火锅", tag: "火锅·川味", score: 9.4, dist: "0.8km", users: 1284 },
@@ -158,16 +158,22 @@ export function HomeScreen() {
       </div>
 
       {/* Quick categories */}
-      <div className="grid grid-cols-5 gap-1 px-3 pt-2">
+      <div className="grid grid-cols-5 gap-1 px-3 pt-3">
         {cats.map((c) => (
-          <button key={c.label} className="flex flex-col items-center gap-1.5 py-2">
+          <button key={c.label} className="flex flex-col items-center gap-2 py-2">
             <div
-              className="flex h-12 w-12 items-center justify-center rounded-2xl"
-              style={{ background: c.color }}
+              className="flex h-14 w-14 items-center justify-center rounded-full"
+              style={{ background: c.bg }}
             >
-              <c.icon className="h-5 w-5 text-ink" strokeWidth={1.8} />
+              <c.icon
+                className="h-[22px] w-[22px]"
+                style={{ color: c.fg }}
+                strokeWidth={1.8}
+              />
             </div>
-            <span className="text-[11px] font-medium text-ink">{c.label}</span>
+            <span className="text-[11px] font-medium tracking-tight text-ink">
+              {c.label}
+            </span>
           </button>
         ))}
       </div>
@@ -714,31 +720,31 @@ export function RankScreen() {
   return (
     <div className="relative h-full overflow-y-auto bg-surface pb-32">
       {/* Hero */}
-      <div className="relative overflow-hidden bg-ink px-5 pt-12 pb-8 text-white">
+      <div className="relative overflow-hidden bg-ink px-5 pt-12 pb-12 text-white">
         <div className="absolute -right-10 -top-8 h-44 w-44 rounded-full bg-white/5 blur-2xl" />
         <div className="absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-highlight/10 blur-3xl" />
         <div className="relative">
           <Pill tone="highlight">
             <Crown className="h-3 w-3" /> 景泰榜单 · 本周
           </Pill>
-          <h1 className="mt-3 text-[26px] font-black leading-tight">
+          <h1 className="mt-3 text-[22px] font-black leading-[1.2] tracking-tight">
             景泰人都在<br />去这些地方 →
           </h1>
-          <p className="mt-2 text-[12px] text-white/70">
+          <p className="mt-2 text-[11px] text-white/65">
             年轻人真实推荐 · 每周日 20:00 更新
           </p>
         </div>
       </div>
 
       {/* Category chips */}
-      <div className="no-scrollbar -mt-4 flex gap-2 overflow-x-auto px-5 pb-2">
+      <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto px-5 pb-2">
         {cats.map((c, i) => (
           <button
             key={c}
-            className={`shrink-0 rounded-full px-3.5 py-2 text-[12px] font-medium ${
+            className={`shrink-0 rounded-full px-3.5 py-1.5 text-[12px] font-medium ${
               i === 0
-                ? "bg-white text-ink shadow-[0_8px_20px_-10px_rgba(17,17,17,0.3)]"
-                : "bg-white/70 text-ink"
+                ? "bg-ink text-white"
+                : "border border-black/5 bg-white text-ink"
             }`}
           >
             {c}TOP10
@@ -856,22 +862,25 @@ export function MeScreen() {
         </div>
 
         {/* Stats */}
-        <div className="relative mx-5 mt-5 grid grid-cols-3 overflow-hidden rounded-2xl bg-white/10 p-3 backdrop-blur">
+        <div className="relative mx-5 mt-5 grid grid-cols-3 overflow-hidden rounded-2xl border border-white/10 bg-white/10 p-3 backdrop-blur">
           {[
             { n: 47, l: "去过" },
             { n: 24, l: "发布" },
             { n: 168, l: "被收藏" },
-          ].map((s) => (
-            <div key={s.l} className="text-center">
-              <p className="text-[18px] font-black">{s.n}</p>
-              <p className="text-[10px] text-white/70">{s.l}</p>
+          ].map((s, i) => (
+            <div
+              key={s.l}
+              className={`text-center ${i > 0 ? "border-l border-white/10" : ""}`}
+            >
+              <p className="text-[18px] font-black leading-none">{s.n}</p>
+              <p className="mt-1 text-[10px] text-white/65">{s.l}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* Level progress floating card */}
-      <div className="mx-4 -mt-10 rounded-[24px] bg-white p-4 shadow-[0_10px_30px_-18px_rgba(17,17,17,0.25)]">
+      <div className="mx-4 -mt-6 rounded-[24px] bg-white p-4 shadow-[0_10px_30px_-18px_rgba(17,17,17,0.25)]">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-[12px] text-ink-soft">距离 Lv.4 本地达人</p>
