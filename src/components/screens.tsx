@@ -116,11 +116,11 @@ function ScoreBadge({ score }: { score: number }) {
 
 export function HomeScreen() {
   const cats = [
-    { icon: UtensilsCrossed, label: "吃什么", bg: "#FFE4D1", fg: "#E07A3B" },
-    { icon: Coffee, label: "喝什么", bg: "#E1ECFF", fg: "#4F8CFF" },
-    { icon: Gamepad2, label: "玩什么", bg: "#DFF5DA", fg: "#3FA663" },
-    { icon: Heart, label: "约会去哪", bg: "#FFDCE8", fg: "#E85A8A" },
-    { icon: Sparkles, label: "服务体验", bg: "#ECE0FF", fg: "#8A5CF6" },
+    { icon: UtensilsCrossed, label: "吃什么", bg: "#FFF1E6", fg: "#F08A4B" },
+    { icon: Coffee, label: "喝什么", bg: "#EAF1FF", fg: "#6B8FE3" },
+    { icon: Gamepad2, label: "玩什么", bg: "#E8F4EA", fg: "#6BA77A" },
+    { icon: Heart, label: "约会去哪", bg: "#FFECF1", fg: "#E48BA3" },
+    { icon: Sparkles, label: "服务体验", bg: "#F1EBFB", fg: "#9B85D9" },
   ];
   const hot = [
     { img: hotpot, name: "巷子里的麻辣火锅", tag: "火锅·川味", score: 9.4, dist: "0.8km", users: 1284 },
