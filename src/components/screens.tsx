@@ -720,31 +720,31 @@ export function RankScreen() {
   return (
     <div className="relative h-full overflow-y-auto bg-surface pb-32">
       {/* Hero */}
-      <div className="relative overflow-hidden bg-ink px-5 pt-12 pb-8 text-white">
+      <div className="relative overflow-hidden bg-ink px-5 pt-12 pb-12 text-white">
         <div className="absolute -right-10 -top-8 h-44 w-44 rounded-full bg-white/5 blur-2xl" />
         <div className="absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-highlight/10 blur-3xl" />
         <div className="relative">
           <Pill tone="highlight">
             <Crown className="h-3 w-3" /> 景泰榜单 · 本周
           </Pill>
-          <h1 className="mt-3 text-[26px] font-black leading-tight">
+          <h1 className="mt-3 text-[22px] font-black leading-[1.2] tracking-tight">
             景泰人都在<br />去这些地方 →
           </h1>
-          <p className="mt-2 text-[12px] text-white/70">
+          <p className="mt-2 text-[11px] text-white/65">
             年轻人真实推荐 · 每周日 20:00 更新
           </p>
         </div>
       </div>
 
       {/* Category chips */}
-      <div className="no-scrollbar -mt-4 flex gap-2 overflow-x-auto px-5 pb-2">
+      <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto px-5 pb-2">
         {cats.map((c, i) => (
           <button
             key={c}
-            className={`shrink-0 rounded-full px-3.5 py-2 text-[12px] font-medium ${
+            className={`shrink-0 rounded-full px-3.5 py-1.5 text-[12px] font-medium ${
               i === 0
-                ? "bg-white text-ink shadow-[0_8px_20px_-10px_rgba(17,17,17,0.3)]"
-                : "bg-white/70 text-ink"
+                ? "bg-ink text-white"
+                : "border border-black/5 bg-white text-ink"
             }`}
           >
             {c}TOP10
