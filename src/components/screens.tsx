@@ -862,22 +862,25 @@ export function MeScreen() {
         </div>
 
         {/* Stats */}
-        <div className="relative mx-5 mt-5 grid grid-cols-3 overflow-hidden rounded-2xl bg-white/10 p-3 backdrop-blur">
+        <div className="relative mx-5 mt-5 grid grid-cols-3 overflow-hidden rounded-2xl border border-white/10 bg-white/10 p-3 backdrop-blur">
           {[
             { n: 47, l: "去过" },
             { n: 24, l: "发布" },
             { n: 168, l: "被收藏" },
-          ].map((s) => (
-            <div key={s.l} className="text-center">
-              <p className="text-[18px] font-black">{s.n}</p>
-              <p className="text-[10px] text-white/70">{s.l}</p>
+          ].map((s, i) => (
+            <div
+              key={s.l}
+              className={`text-center ${i > 0 ? "border-l border-white/10" : ""}`}
+            >
+              <p className="text-[18px] font-black leading-none">{s.n}</p>
+              <p className="mt-1 text-[10px] text-white/65">{s.l}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* Level progress floating card */}
-      <div className="mx-4 -mt-10 rounded-[24px] bg-white p-4 shadow-[0_10px_30px_-18px_rgba(17,17,17,0.25)]">
+      <div className="mx-4 -mt-6 rounded-[24px] bg-white p-4 shadow-[0_10px_30px_-18px_rgba(17,17,17,0.25)]">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-[12px] text-ink-soft">距离 Lv.4 本地达人</p>
