@@ -15,7 +15,7 @@ import {
   MapPin,
   Navigation,
   Share2,
-  Bookmark,
+  QrCode,
   Image as ImageIcon,
   Star,
   Camera,
@@ -554,18 +554,26 @@ export function DetailScreen() {
       </div>
 
       {/* Bottom action bar */}
-      <div className="absolute inset-x-4 bottom-4 z-40 flex items-center gap-2 rounded-[24px] border border-white/70 bg-white/95 p-2 shadow-[0_16px_40px_-16px_rgba(17,17,17,0.25)] backdrop-blur-xl">
-        <button className="flex flex-1 flex-col items-center py-1">
-          <Bookmark className="h-4 w-4 text-ink" strokeWidth={1.8} />
-          <span className="mt-0.5 text-[10px] text-ink">想去</span>
-        </button>
-        <button className="flex flex-1 flex-col items-center py-1">
-          <Navigation className="h-4 w-4 text-ink" strokeWidth={1.8} />
-          <span className="mt-0.5 text-[10px] text-ink">导航</span>
-        </button>
-        <button className="ml-1 flex flex-[2] items-center justify-center gap-1 rounded-2xl bg-ink py-3 text-[13px] font-semibold text-white">
-          <PenLine className="h-4 w-4" /> 写体验
-        </button>
+      <div className="absolute inset-x-4 bottom-4 z-40 rounded-[28px] border border-white/70 bg-white/90 p-1.5 shadow-[0_16px_40px_-16px_rgba(17,17,17,0.28)] backdrop-blur-xl">
+        <div className="flex items-stretch gap-1.5">
+          <button className="group flex flex-1 flex-col items-center justify-center gap-0.5 rounded-[22px] py-2.5 transition-colors hover:bg-surface">
+            <Heart className="h-[18px] w-[18px] text-[#ff5a7a]" fill="#ff5a7a" strokeWidth={1.6} />
+            <span className="text-[10px] font-medium text-ink">想去</span>
+          </button>
+          <div className="my-2 w-px bg-black/5" />
+          <button className="group flex flex-1 flex-col items-center justify-center gap-0.5 rounded-[22px] py-2.5 transition-colors hover:bg-surface">
+            <MapPin className="h-[18px] w-[18px] text-ink-soft" strokeWidth={1.8} />
+            <span className="text-[10px] font-medium text-ink">去过</span>
+          </button>
+          <div className="my-2 w-px bg-black/5" />
+          <button className="group flex flex-1 flex-col items-center justify-center gap-0.5 rounded-[22px] py-2.5 transition-colors hover:bg-surface">
+            <Navigation className="h-[18px] w-[18px] text-ink-soft" strokeWidth={1.8} />
+            <span className="text-[10px] font-medium text-ink">导航</span>
+          </button>
+          <button className="ml-0.5 flex flex-[1.6] items-center justify-center gap-1.5 rounded-[22px] bg-ink py-3 text-[13px] font-semibold text-white shadow-[0_8px_20px_-8px_rgba(17,17,17,0.5)]">
+            <PenLine className="h-[15px] w-[15px]" strokeWidth={2.2} /> 写体验
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -815,6 +823,20 @@ export function MeScreen() {
       <div className="relative overflow-hidden bg-ink pt-12 pb-16 text-white">
         <div className="absolute -right-12 top-6 h-40 w-40 rounded-full bg-brand/30 blur-3xl" />
         <div className="absolute -left-10 -bottom-8 h-40 w-40 rounded-full bg-highlight/20 blur-3xl" />
+
+        {/* Top nav bar */}
+        <div className="relative flex items-center justify-between px-5 pb-5">
+          <p className="text-[15px] font-bold tracking-wide">我的</p>
+          <div className="flex items-center gap-2">
+            <button className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 backdrop-blur transition-colors hover:bg-white/20">
+              <QrCode className="h-[15px] w-[15px] text-white" strokeWidth={1.8} />
+            </button>
+            <button className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 backdrop-blur transition-colors hover:bg-white/20">
+              <Settings className="h-[15px] w-[15px] text-white" strokeWidth={1.8} />
+            </button>
+          </div>
+        </div>
+
         <div className="relative flex items-center gap-4 px-5">
           <div className="relative">
             <img
@@ -831,9 +853,6 @@ export function MeScreen() {
             <p className="mt-0.5 text-[11px] text-white/70">宝藏猎人 · 走过 47 个地方</p>
             <p className="mt-1 text-[10px] text-white/60">"晚上九点的烧烤摊最好吃。"</p>
           </div>
-          <button className="rounded-full border border-white/20 px-3 py-1.5 text-[11px]">
-            编辑
-          </button>
         </div>
 
         {/* Stats */}
