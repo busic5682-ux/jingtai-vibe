@@ -461,7 +461,7 @@ export function DetailScreen() {
         </div>
 
         {/* Title */}
-        <div className="absolute inset-x-5 bottom-5 text-white">
+        <div className="absolute inset-x-5 bottom-7 text-white">
           <div className="flex items-center gap-2">
             <Pill tone="dark">私房菜</Pill>
             <Pill tone="dark">约会推荐</Pill>
