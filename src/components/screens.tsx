@@ -718,7 +718,7 @@ export function RankScreen() {
   const medal = ["#FFD56B", "#D9D9D9", "#E8A372"];
 
   return (
-    <div className="relative h-full overflow-y-auto bg-surface pb-32">
+    <div className="h-full overflow-y-auto bg-surface pb-32">
       {/* Hero */}
       <div className="relative overflow-hidden bg-ink px-5 pt-12 pb-12 text-white">
         <div className="absolute -right-10 -top-8 h-44 w-44 rounded-full bg-white/5 blur-2xl" />
@@ -824,7 +824,7 @@ export function MeScreen() {
   ];
 
   return (
-    <div className="relative h-full overflow-y-auto bg-surface pb-32">
+    <div className="h-full overflow-y-auto bg-surface pb-32">
       {/* Header */}
       <div className="relative overflow-hidden bg-ink pt-12 pb-16 text-white">
         <div className="absolute -right-12 top-6 h-40 w-40 rounded-full bg-brand/30 blur-3xl" />
