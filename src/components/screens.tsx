@@ -826,7 +826,7 @@ export function MeScreen() {
   return (
     <div className="h-full overflow-y-auto bg-surface pb-32">
       {/* Header */}
-      <div className="relative overflow-hidden bg-ink pt-12 pb-16 text-white">
+      <div className="relative overflow-hidden bg-ink pt-12 pb-8 text-white">
         <div className="absolute -right-12 top-6 h-40 w-40 rounded-full bg-brand/30 blur-3xl" />
         <div className="absolute -left-10 -bottom-8 h-40 w-40 rounded-full bg-highlight/20 blur-3xl" />
 
@@ -877,21 +877,21 @@ export function MeScreen() {
             </div>
           ))}
         </div>
-      </div>
 
-      {/* Level progress floating card */}
-      <div className="mx-4 -mt-6 rounded-[24px] bg-white p-4 shadow-[0_10px_30px_-18px_rgba(17,17,17,0.25)]">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-[12px] text-ink-soft">距离 Lv.4 本地达人</p>
-            <p className="mt-0.5 text-[14px] font-bold text-ink">还差 12 次体验</p>
+        {/* Level progress — unified with header */}
+        <div className="relative mx-5 mt-4 rounded-2xl border border-white/10 bg-white/10 p-4 backdrop-blur">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-[11px] text-white/60">距离 Lv.4 本地达人</p>
+              <p className="mt-0.5 text-[13px] font-semibold text-white">还差 12 次体验</p>
+            </div>
+            <span className="inline-flex items-center gap-1 rounded-full bg-highlight px-2.5 py-1 text-[10px] font-medium text-ink">
+              <Crown className="h-3 w-3" /> Lv.3 宝藏猎人
+            </span>
           </div>
-          <Pill tone="brand">
-            <Crown className="h-3 w-3" /> Lv.3 宝藏猎人
-          </Pill>
-        </div>
-        <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-surface">
-          <div className="h-full w-[68%] rounded-full bg-ink" />
+          <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-white/15">
+            <div className="h-full w-[68%] rounded-full bg-highlight" />
+          </div>
         </div>
       </div>
 
