@@ -443,7 +443,7 @@ export function DetailScreen() {
       {/* Cover */}
       <div className="relative h-[320px] w-full">
         <img src={restaurant} alt="" className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent" />
 
         {/* Top actions */}
         <div className="absolute inset-x-4 top-12 flex items-center justify-between">
@@ -461,7 +461,7 @@ export function DetailScreen() {
         </div>
 
         {/* Title */}
-        <div className="absolute inset-x-5 bottom-5 text-white">
+        <div className="absolute inset-x-5 bottom-7 text-white">
           <div className="flex items-center gap-2">
             <Pill tone="dark">私房菜</Pill>
             <Pill tone="dark">约会推荐</Pill>
