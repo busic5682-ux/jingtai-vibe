@@ -488,13 +488,13 @@ export function DetailScreen() {
         </div>
 
         {/* Title */}
-        <div className="absolute inset-x-5 bottom-7 text-white">
+        <div className="absolute inset-x-5 bottom-16 text-white">
           <div className="flex items-center gap-2">
             <Pill tone="dark">私房菜</Pill>
             <Pill tone="dark">约会推荐</Pill>
           </div>
           <h1 className="mt-2 text-[24px] font-bold leading-tight">山间小院 · 私房菜</h1>
-          <div className="mt-1 flex items-center gap-3 text-[11px] opacity-90">
+          <div className="mt-1.5 flex items-center gap-3 text-[11px] opacity-90">
             <span className="flex items-center gap-1">
               <MapPin className="h-3 w-3" /> 一条街 38 号 · 1.6km
             </span>
@@ -502,17 +502,17 @@ export function DetailScreen() {
         </div>
       </div>
 
-      {/* Score row */}
-      <div className="mx-4 -mt-6 rounded-[24px] border border-black/5 bg-white p-4 shadow-[0_10px_30px_-18px_rgba(17,17,17,0.25)]">
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="flex items-baseline gap-2">
-              <span className="text-[32px] font-black text-ink leading-none">9.2</span>
+      {/* Score row — overlaps cover cleanly with breathing room */}
+      <div className="relative z-10 mx-4 -mt-10 rounded-[20px] border border-black/5 bg-white p-4 shadow-[0_10px_30px_-18px_rgba(17,17,17,0.25)]">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-[32px] font-black leading-none text-ink">9.2</span>
               <span className="text-[11px] text-ink-soft">推荐指数</span>
             </div>
-            <p className="mt-1 text-[11px] text-ink-soft">基于 312 位景泰人体验</p>
+            <p className="mt-1.5 text-[11px] text-ink-soft">基于 312 位景泰人体验</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 flex-col items-end gap-1.5">
             <div className="flex -space-x-2">
               {[avatar, milktea, cafe].map((s, i) => (
                 <img
@@ -533,6 +533,7 @@ export function DetailScreen() {
           ))}
         </div>
       </div>
+
 
       {/* Photo wall */}
       <div className="mt-6 px-5">
