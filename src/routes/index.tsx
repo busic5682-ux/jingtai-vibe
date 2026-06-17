@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/phone-frame";
 import {
   HomeScreen,
@@ -45,9 +45,23 @@ function Showcase() {
               </p>
             </div>
           </div>
-          <span className="hidden rounded-full border border-black/10 bg-white px-3 py-1.5 text-[11px] font-medium text-ink-soft md:inline">
-            微信小程序 · 2026 设计
-          </span>
+          <div className="hidden items-center gap-2 md:flex">
+            <Link
+              to="/pages/edit-profile"
+              className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-[11px] font-medium text-ink transition-colors hover:bg-surface"
+            >
+              编辑资料
+            </Link>
+            <Link
+              to="/pages/settings"
+              className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-[11px] font-medium text-ink transition-colors hover:bg-surface"
+            >
+              设置
+            </Link>
+            <span className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-[11px] font-medium text-ink-soft">
+              微信小程序 · 2026 设计
+            </span>
+          </div>
         </div>
       </header>
 

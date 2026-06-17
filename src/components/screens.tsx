@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import {
   Bell,
   Search,
@@ -30,6 +31,7 @@ import {
   ChevronLeft,
   Layers,
   Locate,
+  PenSquare,
 } from "lucide-react";
 
 import hotpot from "@/assets/place-hotpot.jpg";
@@ -145,9 +147,18 @@ export function HomeScreen() {
               </div>
             </div>
           </div>
-          <button className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm">
-            <Bell className="h-4 w-4 text-ink" strokeWidth={1.8} />
-          </button>
+          <div className="flex items-center gap-2">
+            <Link
+              to="/pages/edit-profile"
+              className="flex items-center gap-1 rounded-full bg-white px-2.5 py-1.5 text-[10px] font-medium text-ink shadow-sm transition-colors hover:bg-white/80"
+            >
+              <PenSquare className="h-3 w-3" strokeWidth={2} />
+              编辑资料
+            </Link>
+            <button className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm">
+              <Bell className="h-4 w-4 text-ink" strokeWidth={1.8} />
+            </button>
+          </div>
         </div>
 
         {/* Search */}
@@ -815,12 +826,13 @@ export function MeScreen() {
   ];
 
   const menu = [
-    { icon: Heart, label: "我的收藏", sub: "想去 12 · 去过 38 · 最爱 6" },
-    { icon: PenLine, label: "我的发布", sub: "已发布 24 篇体验" },
-    { icon: Footprints, label: "我的足迹", sub: "走过景泰 47 个地方" },
-    { icon: Award, label: "我的徽章", sub: "已点亮 3 / 7" },
-    { icon: MessageSquare, label: "意见反馈" },
-    { icon: Settings, label: "设置" },
+    { icon: Heart, label: "我的收藏", sub: "想去 12 · 去过 38 · 最爱 6", to: null },
+    { icon: PenLine, label: "我的发布", sub: "已发布 24 篇体验", to: null },
+    { icon: Footprints, label: "我的足迹", sub: "走过景泰 47 个地方", to: null },
+    { icon: Award, label: "我的徽章", sub: "已点亮 3 / 7", to: null },
+    { icon: PenSquare, label: "编辑资料", sub: "完善你的画像", to: "/pages/edit-profile" as const },
+    { icon: MessageSquare, label: "意见反馈", to: null },
+    { icon: Settings, label: "设置", to: "/pages/settings" as const },
   ];
 
   return (
@@ -837,9 +849,12 @@ export function MeScreen() {
             <button className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 backdrop-blur transition-colors hover:bg-white/20">
               <QrCode className="h-[15px] w-[15px] text-white" strokeWidth={1.8} />
             </button>
-            <button className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 backdrop-blur transition-colors hover:bg-white/20">
+            <Link
+              to="/pages/settings"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 backdrop-blur transition-colors hover:bg-white/20"
+            >
               <Settings className="h-[15px] w-[15px] text-white" strokeWidth={1.8} />
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -930,25 +945,34 @@ export function MeScreen() {
 
       {/* Menu */}
       <div className="mx-4 mt-5 overflow-hidden rounded-[24px] bg-white">
-        {menu.map((m, i) => (
-          <div
-            key={m.label}
-            className={`flex items-center gap-3 px-4 py-3.5 ${
-              i !== menu.length - 1 ? "border-b border-black/5" : ""
-            }`}
-          >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-surface">
-              <m.icon className="h-4 w-4 text-ink" strokeWidth={1.8} />
+        {menu.map((m, i) => {
+          const inner = (
+            <>
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-surface">
+                <m.icon className="h-4 w-4 text-ink" strokeWidth={1.8} />
+              </div>
+              <div className="flex-1">
+                <p className="text-[13px] font-semibold text-ink">{m.label}</p>
+                {m.sub && (
+                  <p className="mt-0.5 text-[10px] text-ink-soft">{m.sub}</p>
+                )}
+              </div>
+              <ChevronRight className="h-4 w-4 text-ink-soft/60" />
+            </>
+          );
+          const className = `flex items-center gap-3 px-4 py-3.5 transition-colors ${
+            i !== menu.length - 1 ? "border-b border-black/5" : ""
+          } ${m.to ? "active:bg-surface" : ""}`;
+          return m.to ? (
+            <Link key={m.label} to={m.to} className={className}>
+              {inner}
+            </Link>
+          ) : (
+            <div key={m.label} className={className}>
+              {inner}
             </div>
-            <div className="flex-1">
-              <p className="text-[13px] font-semibold text-ink">{m.label}</p>
-              {m.sub && (
-                <p className="mt-0.5 text-[10px] text-ink-soft">{m.sub}</p>
-              )}
-            </div>
-            <ChevronRight className="h-4 w-4 text-ink-soft/60" />
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <TabBar active="me" />
