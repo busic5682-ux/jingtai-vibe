@@ -715,11 +715,11 @@ export function PostScreen() {
         </div>
       </div>
 
-      {/* Publish button */}
-      <div className="absolute inset-x-4 bottom-6 z-40">
-        <button className="flex w-full items-center justify-center gap-2 rounded-2xl bg-ink py-4 text-[14px] font-semibold text-white shadow-[0_14px_30px_-12px_rgba(17,17,17,0.45)]">
+      {/* Publish button — in-flow, not fixed; sits above TabBar with mb spacing */}
+      <div className="mx-5 mt-6 mb-28">
+        <BaseButton variant="primary" size="lg" block>
           <Send className="h-4 w-4" /> 发布到景泰GO
-        </button>
+        </BaseButton>
       </div>
     </div>
   );
