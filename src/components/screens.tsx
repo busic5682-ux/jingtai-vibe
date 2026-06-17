@@ -945,25 +945,34 @@ export function MeScreen() {
 
       {/* Menu */}
       <div className="mx-4 mt-5 overflow-hidden rounded-[24px] bg-white">
-        {menu.map((m, i) => (
-          <div
-            key={m.label}
-            className={`flex items-center gap-3 px-4 py-3.5 ${
-              i !== menu.length - 1 ? "border-b border-black/5" : ""
-            }`}
-          >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-surface">
-              <m.icon className="h-4 w-4 text-ink" strokeWidth={1.8} />
+        {menu.map((m, i) => {
+          const inner = (
+            <>
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-surface">
+                <m.icon className="h-4 w-4 text-ink" strokeWidth={1.8} />
+              </div>
+              <div className="flex-1">
+                <p className="text-[13px] font-semibold text-ink">{m.label}</p>
+                {m.sub && (
+                  <p className="mt-0.5 text-[10px] text-ink-soft">{m.sub}</p>
+                )}
+              </div>
+              <ChevronRight className="h-4 w-4 text-ink-soft/60" />
+            </>
+          );
+          const className = `flex items-center gap-3 px-4 py-3.5 transition-colors ${
+            i !== menu.length - 1 ? "border-b border-black/5" : ""
+          } ${m.to ? "active:bg-surface" : ""}`;
+          return m.to ? (
+            <Link key={m.label} to={m.to} className={className}>
+              {inner}
+            </Link>
+          ) : (
+            <div key={m.label} className={className}>
+              {inner}
             </div>
-            <div className="flex-1">
-              <p className="text-[13px] font-semibold text-ink">{m.label}</p>
-              {m.sub && (
-                <p className="mt-0.5 text-[10px] text-ink-soft">{m.sub}</p>
-              )}
-            </div>
-            <ChevronRight className="h-4 w-4 text-ink-soft/60" />
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <TabBar active="me" />
