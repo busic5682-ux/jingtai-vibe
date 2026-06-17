@@ -8,8 +8,6 @@ import {
   RankScreen,
   MeScreen,
 } from "@/components/screens";
-import { EditProfileScreen } from "@/components/pages/edit-profile-screen";
-import { SettingsScreen } from "@/components/pages/settings-screen";
 
 export const Route = createFileRoute("/")({
   head: () => ({
