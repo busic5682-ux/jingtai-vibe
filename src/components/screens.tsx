@@ -165,9 +165,13 @@ export function HomeScreen() {
               <PenSquare className="h-3 w-3" strokeWidth={2} />
               编辑资料
             </Link>
-            <button className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm">
-              <Bell className="h-4 w-4 text-ink" strokeWidth={1.8} />
-            </button>
+            <Link
+              to="/pages/settings"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm transition-colors hover:bg-white/80"
+              aria-label="设置"
+            >
+              <Settings className="h-4 w-4 text-ink" strokeWidth={1.8} />
+            </Link>
           </div>
         </div>
 
