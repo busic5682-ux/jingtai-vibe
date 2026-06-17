@@ -64,6 +64,7 @@ function Showcase() {
               微信小程序 · 2026 设计
             </span>
           </div>
+        </div>
       </header>
 
       {/* Hero copy */}
