@@ -105,16 +105,11 @@ const pngFallback: Record<string, string> = Object.fromEntries(
   ]),
 );
 
-// Aliases for legacy names used across screens.tsx
+// Legacy English aliases (kept minimal — Chinese aliases removed per spec)
 const aliases: Record<string, IconName> = {
   discover: "map",
   rank: "ranking",
   me: "profile",
-  "cat-eat": "food",
-  "cat-drink": "drink",
-  "cat-play": "play",
-  "cat-date": "date",
-  "cat-service": "service",
 };
 
 export type IconState = "default" | "inactive" | "active";
