@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PagesSettingsRouteImport } from './routes/pages.settings'
+import { Route as PagesEditProfileRouteImport } from './routes/pages.edit-profile'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PagesSettingsRoute = PagesSettingsRouteImport.update({
+  id: '/pages/settings',
+  path: '/pages/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PagesEditProfileRoute = PagesEditProfileRouteImport.update({
+  id: '/pages/edit-profile',
+  path: '/pages/edit-profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/pages/edit-profile': typeof PagesEditProfileRoute
+  '/pages/settings': typeof PagesSettingsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/pages/edit-profile': typeof PagesEditProfileRoute
+  '/pages/settings': typeof PagesSettingsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/pages/edit-profile': typeof PagesEditProfileRoute
+  '/pages/settings': typeof PagesSettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/pages/edit-profile' | '/pages/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/pages/edit-profile' | '/pages/settings'
+  id: '__root__' | '/' | '/pages/edit-profile' | '/pages/settings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PagesEditProfileRoute: typeof PagesEditProfileRoute
+  PagesSettingsRoute: typeof PagesSettingsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +68,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pages/settings': {
+      id: '/pages/settings'
+      path: '/pages/settings'
+      fullPath: '/pages/settings'
+      preLoaderRoute: typeof PagesSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pages/edit-profile': {
+      id: '/pages/edit-profile'
+      path: '/pages/edit-profile'
+      fullPath: '/pages/edit-profile'
+      preLoaderRoute: typeof PagesEditProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PagesEditProfileRoute: PagesEditProfileRoute,
+  PagesSettingsRoute: PagesSettingsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
