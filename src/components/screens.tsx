@@ -172,6 +172,14 @@ export function HomeScreen() {
               编辑资料
             </Link>
             <Link
+              to="/pages/icon-system"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm transition-colors hover:bg-white/80"
+              aria-label="Icon System"
+              title="Icon System"
+            >
+              <BaseIcon name="info" size={16} />
+            </Link>
+            <Link
               to="/pages/settings"
               className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm transition-colors hover:bg-white/80"
               aria-label="设置"
