@@ -178,19 +178,15 @@ export function HomeScreen() {
         </div>
       </div>
 
-      {/* Quick categories */}
+      {/* Quick categories — neutral monochrome */}
       <div className="grid grid-cols-5 gap-1 px-3 pt-3">
         {cats.map((c) => (
-          <button key={c.label} className="flex flex-col items-center gap-2 py-2">
-            <div
-              className="flex h-14 w-14 items-center justify-center rounded-full"
-              style={{ background: c.bg }}
-            >
-              <c.icon
-                className="h-[22px] w-[22px]"
-                style={{ color: c.fg }}
-                strokeWidth={1.8}
-              />
+          <button
+            key={c.label}
+            className="flex flex-col items-center gap-2 py-2 transition-transform active:scale-95"
+          >
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-[0_2px_8px_-4px_rgba(17,17,17,0.08)]">
+              <BaseIcon name={c.icon} size={24} />
             </div>
             <span className="text-[11px] font-medium tracking-tight text-ink">
               {c.label}
