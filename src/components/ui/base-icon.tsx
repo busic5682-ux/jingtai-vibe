@@ -9,13 +9,10 @@ import {
   PenLine,
   Settings,
   Locate,
-  MapPin,
   Camera,
   Heart,
   Share2,
   ChevronLeft,
-  ChevronRight,
-  Trash2,
   Phone,
   Bell,
   ShieldCheck,
@@ -26,13 +23,6 @@ import {
   Gamepad2,
   Sparkles,
   Wrench,
-  CupSoda,
-  Moon,
-  Flame,
-  HeartHandshake,
-  Compass,
-  Megaphone,
-  Footprints,
   type LucideIcon,
 } from "lucide-react";
 
@@ -44,8 +34,9 @@ import {
  *  - Monochrome (black/gray); warm-yellow only for ratings / badges
  *  - States: default | inactive | active
  *
- * Names match the PNG export filenames under /static/icons/<name>.png
- * (Codex 小程序端按此命名复用)。
+ * Names map 1:1 to PNG exports at /static/icons/<name>.png.
+ * TabBar items also need <name>-active.png. Codex must follow this list
+ * verbatim — do not introduce ad-hoc icon names.
  */
 export const iconRegistry = {
   // TabBar
@@ -55,39 +46,27 @@ export const iconRegistry = {
   ranking: Trophy,
   profile: User,
 
-  // Common functions
-  search: Search,
-  edit: PenLine,
-  settings: Settings,
-  location: Locate,
-  "map-pin": MapPin,
-  camera: Camera,
-  heart: Heart,
-  share: Share2,
-  back: ChevronLeft,
-  "chevron-right": ChevronRight,
-  trash: Trash2,
-  phone: Phone,
-  notification: Bell,
-  shield: ShieldCheck,
-  cache: HardDrive,
-  info: Info,
-
-  // Home categories
+  // Category (home entries)
   food: UtensilsCrossed,
   drink: Coffee,
   play: Gamepad2,
   date: Sparkles,
   service: Wrench,
 
-  // Badges
-  "milk-tea": CupSoda,
-  "night-food": Moon,
-  barbecue: Flame,
-  "date-master": HeartHandshake,
-  discoverer: Compass,
-  recommender: Megaphone,
-  "local-explorer": Footprints,
+  // Function
+  search: Search,
+  edit: PenLine,
+  settings: Settings,
+  location: Locate,
+  camera: Camera,
+  heart: Heart,
+  share: Share2,
+  back: ChevronLeft,
+  phone: Phone,
+  notification: Bell,
+  shield: ShieldCheck,
+  cache: HardDrive,
+  info: Info,
 } satisfies Record<string, LucideIcon>;
 
 export type IconName = keyof typeof iconRegistry;
