@@ -855,17 +855,6 @@ export function MeScreen() {
         {/* Top nav bar */}
         <div className="relative flex items-center justify-between px-5 pb-5">
           <p className="text-[15px] font-bold tracking-wide">我的</p>
-          <div className="flex items-center gap-2">
-            <button className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 backdrop-blur transition-colors hover:bg-white/20">
-              <QrCode className="h-[15px] w-[15px] text-white" strokeWidth={1.8} />
-            </button>
-            <Link
-              to="/pages/settings"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 backdrop-blur transition-colors hover:bg-white/20"
-            >
-              <Settings className="h-[15px] w-[15px] text-white" strokeWidth={1.8} />
-            </Link>
-          </div>
         </div>
 
         <div className="relative flex items-center gap-4 px-5">
