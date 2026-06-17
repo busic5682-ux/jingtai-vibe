@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import {
   Bell,
   Search,
@@ -8,11 +8,6 @@ import {
   Heart,
   Sparkles,
   ChevronRight,
-  Home,
-  Compass,
-  Plus,
-  Trophy,
-  User,
   MapPin,
   Navigation,
   Share2,
@@ -32,6 +27,7 @@ import {
   Layers,
   Locate,
   PenSquare,
+  Plus,
 } from "lucide-react";
 
 import hotpot from "@/assets/place-hotpot.jpg";
@@ -41,26 +37,30 @@ import bbq from "@/assets/place-bbq.jpg";
 import restaurant from "@/assets/place-restaurant.jpg";
 import avatar from "@/assets/avatar.jpg";
 
+import { BaseIcon } from "@/components/ui/base-icon";
+import { BaseCard } from "@/components/ui/base-card";
+import { BaseButton } from "@/components/ui/base-button";
+
 // ---------- shared bits ----------
 
-function TabBar({ active }: { active: "home" | "discover" | "post" | "rank" | "me" }) {
-  const item = (
-    key: typeof active,
-    Icon: typeof Home,
-    label: string,
-  ) => {
+type TabKey = "home" | "discover" | "post" | "rank" | "me";
+
+function TabBar({ active }: { active: TabKey }) {
+  const navigate = useNavigate();
+
+  const tab = (key: TabKey, iconName: string, label: string, to?: string) => {
     const on = active === key;
     return (
       <button
         key={key}
-        className="flex flex-1 flex-col items-center justify-center gap-1"
+        onClick={() => to && navigate({ to })}
+        className="flex flex-1 flex-col items-center justify-center gap-1 transition-opacity active:opacity-60"
       >
-        <Icon
-          className={`h-5 w-5 ${on ? "text-ink" : "text-ink-soft/60"}`}
-          strokeWidth={on ? 2.2 : 1.7}
-        />
+        <BaseIcon name={iconName} size={24} active={on} />
         <span
-          className={`text-[10px] ${on ? "font-semibold text-ink" : "text-ink-soft/70"}`}
+          className={`text-[10px] ${
+            on ? "font-semibold text-ink" : "text-ink-soft/70"
+          }`}
         >
           {label}
         </span>
@@ -69,17 +69,27 @@ function TabBar({ active }: { active: "home" | "discover" | "post" | "rank" | "m
   };
 
   return (
-    <div className="absolute inset-x-4 bottom-4 z-40">
-      <div className="relative flex items-center rounded-[28px] border border-white/60 bg-white/85 px-2 py-2 shadow-[0_8px_30px_-12px_rgba(17,17,17,0.18)] backdrop-blur-xl">
-        {item("home", Home, "首页")}
-        {item("discover", Compass, "发现")}
-        <button className="-mt-7 flex h-14 w-14 flex-col items-center justify-center rounded-full bg-ink shadow-[0_10px_24px_-6px_rgba(79,140,255,0.45)] ring-4 ring-white">
-          <Plus className="h-6 w-6 text-white" strokeWidth={2.4} />
-        </button>
-        {item("rank", Trophy, "榜单")}
-        {item("me", User, "我的")}
+    <>
+      {/* Bottom bar — 4 tabs evenly spaced, center slot left empty */}
+      <div className="absolute inset-x-4 bottom-4 z-40">
+        <div className="flex h-16 items-center rounded-[20px] border border-white/60 bg-white/90 px-2 shadow-[0_8px_30px_-12px_rgba(17,17,17,0.18)] backdrop-blur-xl">
+          {tab("home", "home", "首页", "/")}
+          {tab("discover", "discover", "发现")}
+          <div className="w-16 shrink-0" aria-hidden />
+          {tab("rank", "rank", "榜单")}
+          {tab("me", "me", "我的")}
+        </div>
       </div>
-    </div>
+
+      {/* Independent floating + button — full circle, no clipping, top-most */}
+      <button
+        onClick={() => navigate({ to: "/pages/publish" })}
+        aria-label="发布体验"
+        className="absolute left-1/2 bottom-12 z-50 flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full bg-ink shadow-[0_10px_24px_-6px_rgba(17,17,17,0.45)] ring-4 ring-white transition-transform active:scale-95"
+      >
+        <Plus className="h-6 w-6 text-white" strokeWidth={2.6} />
+      </button>
+    </>
   );
 }
 
