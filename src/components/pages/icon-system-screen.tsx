@@ -1,77 +1,82 @@
 import { Link } from "@tanstack/react-router";
-import { BaseIcon, iconRegistry, type IconName } from "@/components/ui/base-icon";
+import { BaseIcon, type IconName } from "@/components/ui/base-icon";
 import { ChevronLeft } from "lucide-react";
 
-type Group = { title: string; subtitle?: string; items: IconName[] };
+/**
+ * Icon System — design spec page (not a product entry).
+ * Lovable is the single source of truth; Codex exports PNGs to /static/icons/.
+ */
+
+type Row = {
+  name: IconName;
+  usage: string;
+  /** TabBar items also need an -active.png variant */
+  tabBar?: boolean;
+};
+
+type Group = { title: string; subtitle: string; rows: Row[] };
 
 const groups: Group[] = [
   {
-    title: "TabBar Icons",
+    title: "TabBar",
     subtitle: "底部导航 — 首页 / 地图 / 发布 / 榜单 / 我的",
-    items: ["home", "map", "publish", "ranking", "profile"],
-  },
-  {
-    title: "Category Icons",
-    subtitle: "首页五大分类入口",
-    items: ["food", "drink", "play", "date", "service"],
-  },
-  {
-    title: "Function Icons",
-    subtitle: "通用功能",
-    items: [
-      "search",
-      "edit",
-      "settings",
-      "location",
-      "map-pin",
-      "camera",
-      "heart",
-      "share",
-      "back",
-      "chevron-right",
-      "trash",
-      "phone",
-      "notification",
-      "shield",
-      "cache",
-      "info",
+    rows: [
+      { name: "home", usage: "首页 Tab", tabBar: true },
+      { name: "map", usage: "地图 Tab", tabBar: true },
+      { name: "publish", usage: "中间发布按钮（完整圆形 +）", tabBar: true },
+      { name: "ranking", usage: "榜单 Tab", tabBar: true },
+      { name: "profile", usage: "我的 Tab", tabBar: true },
     ],
   },
   {
-    title: "Badge Icons",
-    subtitle: "我的页面成就徽章",
-    items: [
-      "milk-tea",
-      "night-food",
-      "barbecue",
-      "date-master",
-      "discoverer",
-      "recommender",
-      "local-explorer",
+    title: "Category",
+    subtitle: "首页五大分类入口",
+    rows: [
+      { name: "food", usage: "吃什么" },
+      { name: "drink", usage: "喝什么" },
+      { name: "play", usage: "娱乐玩乐" },
+      { name: "date", usage: "约会" },
+      { name: "service", usage: "本地服务" },
+    ],
+  },
+  {
+    title: "Function",
+    subtitle: "通用功能图标",
+    rows: [
+      { name: "search", usage: "搜索框 / 搜索入口" },
+      { name: "edit", usage: "编辑资料 / 编辑动作" },
+      { name: "settings", usage: "设置入口" },
+      { name: "location", usage: "定位 / 当前位置" },
+      { name: "camera", usage: "上传图片 / 拍照" },
+      { name: "heart", usage: "收藏 / 喜欢" },
+      { name: "share", usage: "分享" },
+      { name: "back", usage: "返回上一页" },
+      { name: "phone", usage: "拨打电话" },
+      { name: "notification", usage: "消息 / 通知" },
+      { name: "shield", usage: "隐私 / 安全" },
+      { name: "cache", usage: "缓存 / 存储" },
+      { name: "info", usage: "信息 / 帮助" },
     ],
   },
 ];
 
-function StateRow({ name }: { name: IconName }) {
+function StateCell({ name, state, dark }: { name: IconName; state: "default" | "inactive" | "active"; dark?: boolean }) {
   return (
-    <div className="flex flex-col items-center gap-2">
-      <div className="flex gap-2">
-        {/* default */}
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-[0_2px_8px_-4px_rgba(17,17,17,0.08)]">
-          <BaseIcon name={name} state="default" />
-        </div>
-        {/* inactive */}
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white shadow-[0_2px_8px_-4px_rgba(17,17,17,0.08)]">
-          <BaseIcon name={name} state="inactive" />
-        </div>
-        {/* active — dark filled bg */}
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-ink">
-          <BaseIcon name={name} state="default" className="text-white" />
-        </div>
-      </div>
-      <code className="text-[10px] leading-none text-ink-soft">{name}</code>
+    <div
+      className={`flex h-10 w-10 items-center justify-center rounded-2xl ${
+        dark ? "bg-ink" : "bg-surface"
+      }`}
+    >
+      <BaseIcon name={name} state={state} className={dark ? "text-white" : undefined} />
     </div>
   );
+}
+
+function pngNames(row: Row): string[] {
+  if (row.tabBar) {
+    return [`${row.name}.png`, `${row.name}-active.png`];
+  }
+  return [`${row.name}.png`];
 }
 
 export function IconSystemScreen() {
@@ -82,7 +87,7 @@ export function IconSystemScreen() {
         <Link
           to="/"
           className="flex h-9 w-9 items-center justify-center rounded-full bg-surface"
-          aria-label="返回"
+          aria-label="Back"
         >
           <ChevronLeft className="h-5 w-5 text-ink" strokeWidth={2} />
         </Link>
@@ -93,20 +98,14 @@ export function IconSystemScreen() {
       {/* spec card */}
       <div className="mx-5 mt-5 rounded-2xl bg-white p-4 shadow-[0_2px_8px_-4px_rgba(17,17,17,0.08)]">
         <p className="text-[12px] leading-5 text-ink-soft">
-          Lucide 线性图标 · 24px · 2px stroke · 圆角线端 · 黑白灰为主。
-          暖黄色仅用于评分与等级徽章。三态：default / inactive / active。
+          Lucide 线性图标 · 24px · 2px stroke · round cap / round join · 黑白灰为主。
+          暖黄色仅用于评分、等级、徽章。三态：default / inactive / active。
         </p>
-        <div className="mt-3 flex items-center gap-3 text-[11px]">
-          <span className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-ink" /> default
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-ink-soft/50" /> inactive
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-ink ring-2 ring-ink/10" /> active
-          </span>
-        </div>
+        <p className="mt-2 text-[11px] leading-5 text-ink-soft">
+          导出路径：<code className="rounded bg-surface px-1 py-0.5 text-ink">/static/icons/&lt;name&gt;.png</code>。
+          TabBar 项需额外导出 <code className="rounded bg-surface px-1 py-0.5 text-ink">&lt;name&gt;-active.png</code>。
+          Codex 仅按本规范命名复用，不允许自由替换。
+        </p>
       </div>
 
       {/* groups */}
@@ -114,80 +113,67 @@ export function IconSystemScreen() {
         <section key={g.title} className="mt-6 px-5">
           <div className="mb-3">
             <h2 className="text-[14px] font-semibold text-ink">{g.title}</h2>
-            {g.subtitle && (
-              <p className="text-[11px] text-ink-soft">{g.subtitle}</p>
-            )}
+            <p className="text-[11px] text-ink-soft">{g.subtitle}</p>
           </div>
-          <div className="grid grid-cols-3 gap-4 rounded-2xl bg-white p-4 shadow-[0_2px_8px_-4px_rgba(17,17,17,0.08)] sm:grid-cols-4">
-            {g.items.map((n) => (
-              <StateRow key={n} name={n} />
+
+          <div className="overflow-hidden rounded-2xl bg-white shadow-[0_2px_8px_-4px_rgba(17,17,17,0.08)]">
+            {/* header row */}
+            <div className="grid grid-cols-[88px_1fr_140px] gap-3 border-b border-black/5 px-4 py-2.5 text-[10px] font-medium uppercase tracking-wide text-ink-soft">
+              <span>Name</span>
+              <span>Usage</span>
+              <span className="text-right">States</span>
+            </div>
+
+            {g.rows.map((row) => (
+              <div
+                key={row.name}
+                className="grid grid-cols-[88px_1fr_140px] items-center gap-3 border-b border-black/5 px-4 py-3 last:border-b-0"
+              >
+                <code className="text-[11px] font-medium text-ink">{row.name}</code>
+                <div className="min-w-0">
+                  <p className="truncate text-[12px] text-ink">{row.usage}</p>
+                  <p className="mt-0.5 truncate text-[10px] text-ink-soft">
+                    {pngNames(row).join(" · ")}
+                  </p>
+                </div>
+                <div className="flex justify-end gap-1.5">
+                  <StateCell name={row.name} state="default" />
+                  <StateCell name={row.name} state="inactive" />
+                  <StateCell name={row.name} state="default" dark />
+                </div>
+              </div>
             ))}
+
+            {/* legend */}
+            <div className="grid grid-cols-[88px_1fr_140px] gap-3 bg-surface px-4 py-2 text-[10px] text-ink-soft">
+              <span />
+              <span />
+              <span className="flex justify-end gap-1.5">
+                <span className="w-10 text-center">default</span>
+                <span className="w-10 text-center">inactive</span>
+                <span className="w-10 text-center">active</span>
+              </span>
+            </div>
           </div>
         </section>
       ))}
 
-      {/* PNG export naming */}
+      {/* full export list */}
       <section className="mt-6 px-5">
         <div className="mb-3">
-          <h2 className="text-[14px] font-semibold text-ink">PNG 导出命名</h2>
+          <h2 className="text-[14px] font-semibold text-ink">PNG Export Manifest</h2>
           <p className="text-[11px] text-ink-soft">
-            微信小程序使用 /static/icons/&lt;name&gt;.png；TabBar 需 active 版本。
+            Codex 按此清单导出 PNG 到 <code>/static/icons/</code>。
           </p>
         </div>
         <pre className="overflow-x-auto rounded-2xl bg-ink p-4 text-[11px] leading-5 text-white/90">
-{`# TabBar (需 active 版本)
-/static/icons/home.png         /static/icons/home-active.png
-/static/icons/map.png          /static/icons/map-active.png
-/static/icons/publish.png      /static/icons/publish-active.png
-/static/icons/ranking.png      /static/icons/ranking-active.png
-/static/icons/profile.png      /static/icons/profile-active.png
-
-# Category
-${(["food", "drink", "play", "date", "service"] as const)
-  .map((n) => `/static/icons/${n}.png`)
-  .join("\n")}
-
-# Function
-${Object.keys(iconRegistry)
-  .filter(
-    (n) =>
-      ![
-        "home",
-        "map",
-        "publish",
-        "ranking",
-        "profile",
-        "food",
-        "drink",
-        "play",
-        "date",
-        "service",
-        "milk-tea",
-        "night-food",
-        "barbecue",
-        "date-master",
-        "discoverer",
-        "recommender",
-        "local-explorer",
-      ].includes(n),
+{groups
+  .map(
+    (g) =>
+      `# ${g.title}\n` +
+      g.rows.flatMap((r) => pngNames(r).map((n) => `/static/icons/${n}`)).join("\n"),
   )
-  .map((n) => `/static/icons/${n}.png`)
-  .join("\n")}
-
-# Badge (已解锁深底白图 / 未解锁浅底灰图)
-${(
-  [
-    "milk-tea",
-    "night-food",
-    "barbecue",
-    "date-master",
-    "discoverer",
-    "recommender",
-    "local-explorer",
-  ] as const
-)
-  .map((n) => `/static/icons/badge-${n}.png`)
-  .join("\n")}`}
+  .join("\n\n")}
         </pre>
       </section>
     </div>
