@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PagesSettingsRouteImport } from './routes/pages.settings'
 import { Route as PagesPublishRouteImport } from './routes/pages.publish'
+import { Route as PagesIconSystemRouteImport } from './routes/pages.icon-system'
 import { Route as PagesEditProfileRouteImport } from './routes/pages.edit-profile'
 
 const IndexRoute = IndexRouteImport.update({
@@ -29,6 +30,11 @@ const PagesPublishRoute = PagesPublishRouteImport.update({
   path: '/pages/publish',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PagesIconSystemRoute = PagesIconSystemRouteImport.update({
+  id: '/pages/icon-system',
+  path: '/pages/icon-system',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PagesEditProfileRoute = PagesEditProfileRouteImport.update({
   id: '/pages/edit-profile',
   path: '/pages/edit-profile',
@@ -38,12 +44,14 @@ const PagesEditProfileRoute = PagesEditProfileRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/pages/edit-profile': typeof PagesEditProfileRoute
+  '/pages/icon-system': typeof PagesIconSystemRoute
   '/pages/publish': typeof PagesPublishRoute
   '/pages/settings': typeof PagesSettingsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/pages/edit-profile': typeof PagesEditProfileRoute
+  '/pages/icon-system': typeof PagesIconSystemRoute
   '/pages/publish': typeof PagesPublishRoute
   '/pages/settings': typeof PagesSettingsRoute
 }
@@ -51,18 +59,30 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/pages/edit-profile': typeof PagesEditProfileRoute
+  '/pages/icon-system': typeof PagesIconSystemRoute
   '/pages/publish': typeof PagesPublishRoute
   '/pages/settings': typeof PagesSettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/pages/edit-profile' | '/pages/publish' | '/pages/settings'
+  fullPaths:
+    | '/'
+    | '/pages/edit-profile'
+    | '/pages/icon-system'
+    | '/pages/publish'
+    | '/pages/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/pages/edit-profile' | '/pages/publish' | '/pages/settings'
+  to:
+    | '/'
+    | '/pages/edit-profile'
+    | '/pages/icon-system'
+    | '/pages/publish'
+    | '/pages/settings'
   id:
     | '__root__'
     | '/'
     | '/pages/edit-profile'
+    | '/pages/icon-system'
     | '/pages/publish'
     | '/pages/settings'
   fileRoutesById: FileRoutesById
@@ -70,6 +90,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PagesEditProfileRoute: typeof PagesEditProfileRoute
+  PagesIconSystemRoute: typeof PagesIconSystemRoute
   PagesPublishRoute: typeof PagesPublishRoute
   PagesSettingsRoute: typeof PagesSettingsRoute
 }
@@ -97,6 +118,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PagesPublishRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pages/icon-system': {
+      id: '/pages/icon-system'
+      path: '/pages/icon-system'
+      fullPath: '/pages/icon-system'
+      preLoaderRoute: typeof PagesIconSystemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pages/edit-profile': {
       id: '/pages/edit-profile'
       path: '/pages/edit-profile'
@@ -110,6 +138,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PagesEditProfileRoute: PagesEditProfileRoute,
+  PagesIconSystemRoute: PagesIconSystemRoute,
   PagesPublishRoute: PagesPublishRoute,
   PagesSettingsRoute: PagesSettingsRoute,
 }

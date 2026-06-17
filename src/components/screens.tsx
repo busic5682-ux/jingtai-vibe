@@ -54,30 +54,33 @@ function TabBar({ active }: { active: TabKey }) {
       <button
         key={key}
         onClick={() => to && navigate({ to })}
-        className="flex flex-1 flex-col items-center justify-center gap-1 transition-opacity active:opacity-60"
+        className="relative flex flex-1 flex-col items-center justify-center gap-1 transition-opacity active:opacity-60"
       >
-        <BaseIcon name={iconName} size={24} active={on} />
+        <BaseIcon name={iconName} size={24} state={on ? "active" : "inactive"} />
         <span
-          className={`text-[10px] ${
-            on ? "font-semibold text-ink" : "text-ink-soft/70"
+          className={`text-[10px] leading-none ${
+            on ? "font-semibold text-ink" : "text-ink-soft/60"
           }`}
         >
           {label}
         </span>
+        {on && (
+          <span className="absolute -bottom-1 h-1 w-1 rounded-full bg-ink" />
+        )}
       </button>
     );
   };
 
   return (
     <>
-      {/* Bottom bar — 4 tabs evenly spaced, center slot left empty */}
+      {/* Bottom bar — 5 tabs (publish slot is reserved for the floating button) */}
       <div className="absolute inset-x-4 bottom-4 z-40">
-        <div className="flex h-16 items-center rounded-[20px] border border-white/60 bg-white/90 px-2 shadow-[0_8px_30px_-12px_rgba(17,17,17,0.18)] backdrop-blur-xl">
+        <div className="flex h-16 items-center rounded-[20px] border border-white/60 bg-white/95 px-2 shadow-[0_8px_30px_-12px_rgba(17,17,17,0.18)] backdrop-blur-xl">
           {tab("home", "home", "首页", "/")}
-          {tab("discover", "discover", "发现")}
+          {tab("discover", "map", "地图")}
           <div className="w-16 shrink-0" aria-hidden />
-          {tab("rank", "rank", "榜单")}
-          {tab("me", "me", "我的")}
+          {tab("rank", "ranking", "榜单")}
+          {tab("me", "profile", "我的")}
         </div>
       </div>
 
@@ -85,9 +88,12 @@ function TabBar({ active }: { active: TabKey }) {
       <button
         onClick={() => navigate({ to: "/pages/publish" })}
         aria-label="发布体验"
-        className="absolute left-1/2 bottom-12 z-50 flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full bg-ink shadow-[0_10px_24px_-6px_rgba(17,17,17,0.45)] ring-4 ring-white transition-transform active:scale-95"
+        className={`absolute left-1/2 bottom-12 z-50 flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full shadow-[0_10px_24px_-6px_rgba(17,17,17,0.45)] ring-4 ring-white transition-transform active:scale-95 ${
+          active === "post" ? "bg-ink" : "bg-ink"
+        }`}
       >
-        <Plus className="h-6 w-6 text-white" strokeWidth={2.6} />
+        <Plus className="h-6 w-6 text-white" strokeWidth={2.4} />
+        <span className="sr-only">发布</span>
       </button>
     </>
   );
@@ -128,11 +134,11 @@ function ScoreBadge({ score }: { score: number }) {
 
 export function HomeScreen() {
   const cats = [
-    { icon: "cat-eat", label: "吃什么" },
-    { icon: "cat-drink", label: "喝什么" },
-    { icon: "cat-play", label: "玩什么" },
-    { icon: "cat-date", label: "约会去哪" },
-    { icon: "cat-service", label: "服务体验" },
+    { icon: "food", label: "吃什么" },
+    { icon: "drink", label: "喝什么" },
+    { icon: "play", label: "玩什么" },
+    { icon: "date", label: "约会去哪" },
+    { icon: "service", label: "服务体验" },
   ];
   const hot = [
     { img: hotpot, name: "巷子里的麻辣火锅", tag: "火锅·川味", score: 9.4, dist: "0.8km", users: 1284 },
@@ -164,6 +170,14 @@ export function HomeScreen() {
             >
               <PenSquare className="h-3 w-3" strokeWidth={2} />
               编辑资料
+            </Link>
+            <Link
+              to="/pages/icon-system"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm transition-colors hover:bg-white/80"
+              aria-label="Icon System"
+              title="Icon System"
+            >
+              <BaseIcon name="info" size={16} />
             </Link>
             <Link
               to="/pages/settings"
