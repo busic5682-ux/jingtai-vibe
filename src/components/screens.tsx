@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import {
   Bell,
   Search,
@@ -8,11 +8,6 @@ import {
   Heart,
   Sparkles,
   ChevronRight,
-  Home,
-  Compass,
-  Plus,
-  Trophy,
-  User,
   MapPin,
   Navigation,
   Share2,
@@ -32,6 +27,7 @@ import {
   Layers,
   Locate,
   PenSquare,
+  Plus,
 } from "lucide-react";
 
 import hotpot from "@/assets/place-hotpot.jpg";
@@ -41,26 +37,30 @@ import bbq from "@/assets/place-bbq.jpg";
 import restaurant from "@/assets/place-restaurant.jpg";
 import avatar from "@/assets/avatar.jpg";
 
+import { BaseIcon } from "@/components/ui/base-icon";
+import { BaseCard } from "@/components/ui/base-card";
+import { BaseButton } from "@/components/ui/base-button";
+
 // ---------- shared bits ----------
 
-function TabBar({ active }: { active: "home" | "discover" | "post" | "rank" | "me" }) {
-  const item = (
-    key: typeof active,
-    Icon: typeof Home,
-    label: string,
-  ) => {
+type TabKey = "home" | "discover" | "post" | "rank" | "me";
+
+function TabBar({ active }: { active: TabKey }) {
+  const navigate = useNavigate();
+
+  const tab = (key: TabKey, iconName: string, label: string, to?: string) => {
     const on = active === key;
     return (
       <button
         key={key}
-        className="flex flex-1 flex-col items-center justify-center gap-1"
+        onClick={() => to && navigate({ to })}
+        className="flex flex-1 flex-col items-center justify-center gap-1 transition-opacity active:opacity-60"
       >
-        <Icon
-          className={`h-5 w-5 ${on ? "text-ink" : "text-ink-soft/60"}`}
-          strokeWidth={on ? 2.2 : 1.7}
-        />
+        <BaseIcon name={iconName} size={24} active={on} />
         <span
-          className={`text-[10px] ${on ? "font-semibold text-ink" : "text-ink-soft/70"}`}
+          className={`text-[10px] ${
+            on ? "font-semibold text-ink" : "text-ink-soft/70"
+          }`}
         >
           {label}
         </span>
@@ -69,17 +69,27 @@ function TabBar({ active }: { active: "home" | "discover" | "post" | "rank" | "m
   };
 
   return (
-    <div className="absolute inset-x-4 bottom-4 z-40">
-      <div className="relative flex items-center rounded-[28px] border border-white/60 bg-white/85 px-2 py-2 shadow-[0_8px_30px_-12px_rgba(17,17,17,0.18)] backdrop-blur-xl">
-        {item("home", Home, "首页")}
-        {item("discover", Compass, "发现")}
-        <button className="-mt-7 flex h-14 w-14 flex-col items-center justify-center rounded-full bg-ink shadow-[0_10px_24px_-6px_rgba(79,140,255,0.45)] ring-4 ring-white">
-          <Plus className="h-6 w-6 text-white" strokeWidth={2.4} />
-        </button>
-        {item("rank", Trophy, "榜单")}
-        {item("me", User, "我的")}
+    <>
+      {/* Bottom bar — 4 tabs evenly spaced, center slot left empty */}
+      <div className="absolute inset-x-4 bottom-4 z-40">
+        <div className="flex h-16 items-center rounded-[20px] border border-white/60 bg-white/90 px-2 shadow-[0_8px_30px_-12px_rgba(17,17,17,0.18)] backdrop-blur-xl">
+          {tab("home", "home", "首页", "/")}
+          {tab("discover", "discover", "发现")}
+          <div className="w-16 shrink-0" aria-hidden />
+          {tab("rank", "rank", "榜单")}
+          {tab("me", "me", "我的")}
+        </div>
       </div>
-    </div>
+
+      {/* Independent floating + button — full circle, no clipping, top-most */}
+      <button
+        onClick={() => navigate({ to: "/pages/publish" })}
+        aria-label="发布体验"
+        className="absolute left-1/2 bottom-12 z-50 flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-full bg-ink shadow-[0_10px_24px_-6px_rgba(17,17,17,0.45)] ring-4 ring-white transition-transform active:scale-95"
+      >
+        <Plus className="h-6 w-6 text-white" strokeWidth={2.6} />
+      </button>
+    </>
   );
 }
 
@@ -118,11 +128,11 @@ function ScoreBadge({ score }: { score: number }) {
 
 export function HomeScreen() {
   const cats = [
-    { icon: UtensilsCrossed, label: "吃什么", bg: "#FFF1E6", fg: "#F08A4B" },
-    { icon: Coffee, label: "喝什么", bg: "#EAF1FF", fg: "#6B8FE3" },
-    { icon: Gamepad2, label: "玩什么", bg: "#E8F4EA", fg: "#6BA77A" },
-    { icon: Heart, label: "约会去哪", bg: "#FFECF1", fg: "#E48BA3" },
-    { icon: Sparkles, label: "服务体验", bg: "#F1EBFB", fg: "#9B85D9" },
+    { icon: "cat-eat", label: "吃什么" },
+    { icon: "cat-drink", label: "喝什么" },
+    { icon: "cat-play", label: "玩什么" },
+    { icon: "cat-date", label: "约会去哪" },
+    { icon: "cat-service", label: "服务体验" },
   ];
   const hot = [
     { img: hotpot, name: "巷子里的麻辣火锅", tag: "火锅·川味", score: 9.4, dist: "0.8km", users: 1284 },
@@ -155,9 +165,13 @@ export function HomeScreen() {
               <PenSquare className="h-3 w-3" strokeWidth={2} />
               编辑资料
             </Link>
-            <button className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm">
-              <Bell className="h-4 w-4 text-ink" strokeWidth={1.8} />
-            </button>
+            <Link
+              to="/pages/settings"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm transition-colors hover:bg-white/80"
+              aria-label="设置"
+            >
+              <Settings className="h-4 w-4 text-ink" strokeWidth={1.8} />
+            </Link>
           </div>
         </div>
 
@@ -168,19 +182,15 @@ export function HomeScreen() {
         </div>
       </div>
 
-      {/* Quick categories */}
+      {/* Quick categories — neutral monochrome */}
       <div className="grid grid-cols-5 gap-1 px-3 pt-3">
         {cats.map((c) => (
-          <button key={c.label} className="flex flex-col items-center gap-2 py-2">
-            <div
-              className="flex h-14 w-14 items-center justify-center rounded-full"
-              style={{ background: c.bg }}
-            >
-              <c.icon
-                className="h-[22px] w-[22px]"
-                style={{ color: c.fg }}
-                strokeWidth={1.8}
-              />
+          <button
+            key={c.label}
+            className="flex flex-col items-center gap-2 py-2 transition-transform active:scale-95"
+          >
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-[0_2px_8px_-4px_rgba(17,17,17,0.08)]">
+              <BaseIcon name={c.icon} size={24} />
             </div>
             <span className="text-[11px] font-medium tracking-tight text-ink">
               {c.label}
@@ -705,11 +715,11 @@ export function PostScreen() {
         </div>
       </div>
 
-      {/* Publish button */}
-      <div className="absolute inset-x-4 bottom-6 z-40">
-        <button className="flex w-full items-center justify-center gap-2 rounded-2xl bg-ink py-4 text-[14px] font-semibold text-white shadow-[0_14px_30px_-12px_rgba(17,17,17,0.45)]">
+      {/* Publish button — in-flow, not fixed; sits above TabBar with mb spacing */}
+      <div className="mx-5 mt-6 mb-28">
+        <BaseButton variant="primary" size="lg" block>
           <Send className="h-4 w-4" /> 发布到景泰GO
-        </button>
+        </BaseButton>
       </div>
     </div>
   );
