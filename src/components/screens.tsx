@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import {
   Bell,
   Search,
@@ -30,6 +31,7 @@ import {
   ChevronLeft,
   Layers,
   Locate,
+  PenSquare,
 } from "lucide-react";
 
 import hotpot from "@/assets/place-hotpot.jpg";
@@ -145,9 +147,18 @@ export function HomeScreen() {
               </div>
             </div>
           </div>
-          <button className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm">
-            <Bell className="h-4 w-4 text-ink" strokeWidth={1.8} />
-          </button>
+          <div className="flex items-center gap-2">
+            <Link
+              to="/pages/edit-profile"
+              className="flex items-center gap-1 rounded-full bg-white px-2.5 py-1.5 text-[10px] font-medium text-ink shadow-sm transition-colors hover:bg-white/80"
+            >
+              <PenSquare className="h-3 w-3" strokeWidth={2} />
+              编辑资料
+            </Link>
+            <button className="flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-sm">
+              <Bell className="h-4 w-4 text-ink" strokeWidth={1.8} />
+            </button>
+          </div>
         </div>
 
         {/* Search */}
