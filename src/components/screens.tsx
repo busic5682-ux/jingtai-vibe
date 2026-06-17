@@ -826,12 +826,13 @@ export function MeScreen() {
   ];
 
   const menu = [
-    { icon: Heart, label: "我的收藏", sub: "想去 12 · 去过 38 · 最爱 6" },
-    { icon: PenLine, label: "我的发布", sub: "已发布 24 篇体验" },
-    { icon: Footprints, label: "我的足迹", sub: "走过景泰 47 个地方" },
-    { icon: Award, label: "我的徽章", sub: "已点亮 3 / 7" },
-    { icon: MessageSquare, label: "意见反馈" },
-    { icon: Settings, label: "设置" },
+    { icon: Heart, label: "我的收藏", sub: "想去 12 · 去过 38 · 最爱 6", to: null },
+    { icon: PenLine, label: "我的发布", sub: "已发布 24 篇体验", to: null },
+    { icon: Footprints, label: "我的足迹", sub: "走过景泰 47 个地方", to: null },
+    { icon: Award, label: "我的徽章", sub: "已点亮 3 / 7", to: null },
+    { icon: PenSquare, label: "编辑资料", sub: "完善你的画像", to: "/pages/edit-profile" as const },
+    { icon: MessageSquare, label: "意见反馈", to: null },
+    { icon: Settings, label: "设置", to: "/pages/settings" as const },
   ];
 
   return (
@@ -848,9 +849,12 @@ export function MeScreen() {
             <button className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 backdrop-blur transition-colors hover:bg-white/20">
               <QrCode className="h-[15px] w-[15px] text-white" strokeWidth={1.8} />
             </button>
-            <button className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 backdrop-blur transition-colors hover:bg-white/20">
+            <Link
+              to="/pages/settings"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 backdrop-blur transition-colors hover:bg-white/20"
+            >
               <Settings className="h-[15px] w-[15px] text-white" strokeWidth={1.8} />
-            </button>
+            </Link>
           </div>
         </div>
 
