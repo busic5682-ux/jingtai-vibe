@@ -33,6 +33,7 @@ import {
 import hotpot from "@/assets/place-hotpot.jpg";
 import milktea from "@/assets/place-milktea.jpg";
 import cafe from "@/assets/place-cafe.jpg";
+import logoAsset from "@/assets/logo.png.asset.json";
 import bbq from "@/assets/place-bbq.jpg";
 import restaurant from "@/assets/place-restaurant.jpg";
 import avatar from "@/assets/avatar.jpg";
@@ -150,18 +151,11 @@ export function HomeScreen() {
       {/* Header */}
       <div className="px-5 pt-12 pb-3">
         <div className="flex items-center justify-between">
-          <div>
-            <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-ink">
-                <span className="text-[12px] font-black text-white">GO</span>
-              </div>
-              <div>
-                <p className="text-[15px] font-bold leading-tight text-ink">景泰GO</p>
-                <p className="flex items-center gap-1 text-[10px] text-ink-soft">
-                  <MapPin className="h-2.5 w-2.5" /> 景泰县 · 一条街
-                </p>
-              </div>
-            </div>
+          <div className="flex flex-col gap-1">
+            <img src={logoAsset.url} alt="景泰GO" className="h-9 w-auto object-contain" />
+            <p className="flex items-center gap-1 pl-1 text-[10px] text-ink-soft">
+              <MapPin className="h-2.5 w-2.5" /> 景泰县 · 一条街
+            </p>
           </div>
           <div className="flex items-center gap-2">
             <Link
