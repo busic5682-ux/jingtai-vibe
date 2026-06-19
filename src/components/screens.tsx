@@ -33,6 +33,7 @@ import {
 import hotpot from "@/assets/place-hotpot.jpg";
 import milktea from "@/assets/place-milktea.jpg";
 import cafe from "@/assets/place-cafe.jpg";
+import logoAsset from "@/assets/logo.png.asset.json";
 import bbq from "@/assets/place-bbq.jpg";
 import restaurant from "@/assets/place-restaurant.jpg";
 import avatar from "@/assets/avatar.jpg";
