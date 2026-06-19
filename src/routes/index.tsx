@@ -35,30 +35,12 @@ function Showcase() {
       {/* Top brand bar */}
       <header className="px-6 pt-10 pb-6 md:px-12">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-ink">
-              <span className="text-[13px] font-black text-white">GO</span>
-            </div>
-            <div>
-              <p className="text-[16px] font-bold text-ink">景泰GO</p>
-              <p className="text-[11px] text-ink-soft">
-                发现景泰值得去的地方 · UI 设计稿
-              </p>
-            </div>
-          </div>
+          <img
+            src={logoAsset.url}
+            alt="景泰GO"
+            className="h-12 w-auto"
+          />
           <div className="hidden items-center gap-2 md:flex">
-            <Link
-              to="/pages/edit-profile"
-              className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-[11px] font-medium text-ink transition-colors hover:bg-surface"
-            >
-              编辑资料
-            </Link>
-            <Link
-              to="/pages/settings"
-              className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-[11px] font-medium text-ink transition-colors hover:bg-surface"
-            >
-              设置
-            </Link>
             <span className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-[11px] font-medium text-ink-soft">
               微信小程序 · 2026 设计
             </span>
