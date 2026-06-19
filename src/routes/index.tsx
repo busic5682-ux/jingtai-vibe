@@ -1,5 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { PhoneFrame } from "@/components/phone-frame";
+import logoAsset from "@/assets/logo.png.asset.json";
 import {
   HomeScreen,
   DiscoverScreen,
